@@ -8,7 +8,8 @@ public class Main {
 		// for testing
 		// remove this line when building
 		args = new String[] { "-i", "src/example_input.pdb", "-o",
-				"src/example_output.pdb", "-probe", "1.7", "-resolution", "0.25" };
+				"src/example_output.pdb", "-probe", "1.7", "-resolution",
+				"0.25" };
 		ArrayList<Atom> atoms = new ArrayList<Atom>();
 		byte[][][] atomArray;
 		String inputFilePath = null;
@@ -35,7 +36,7 @@ public class Main {
 				+ probeSize + " " + resolution);
 		try {
 			Scanner input = new Scanner(new File(inputFilePath));
-			while (input.hasNextLine()){
+			while (input.hasNextLine()) {
 				String info = input.nextLine();
 				Scanner parser = new Scanner(info);
 				parser.next();
@@ -54,30 +55,31 @@ public class Main {
 			System.out.println("File Not Found. Exiting.");
 		}
 	}
-	
-	public static void loadFile(){}
+
+	public static void loadFile() {
+	}
 
 	public static void inputError() {
 		System.out
 				.println("Usage: mycode -i inputfile -o outputfile -probe 1.7 -resolution 0.25");
 		System.exit(1);
 	}
-	
-	public static void eraseProbeAtoms(){
-		
+
+	public static void eraseProbeAtoms() {
+
 	}
 
 	public static void eraseNonCavities(byte[][][] atoms, int cx, int cy, int cz) {
 		if (atoms[cx][cy][cz] == 0)
 			return;
-		atoms[cx][cy][cz]=1;
+		atoms[cx][cy][cz] = 1;
 		for (int i = cx - 1; i <= cx + 1; i++) {
 			for (int j = cy - 1; j < cy + 1; j++) {
 				for (int k = cz - 1; k < cz + 1; k++) {
 					if (!(i == cx && j == cy && k == cz) && i >= 0 && j >= 0
 							&& k >= 0 && i < atoms.length
 							&& j < atoms[0].length && k < atoms[0][0].length) {
-						eraseNonCavities(atoms,i,j,k);
+						eraseNonCavities(atoms, i, j, k);
 					}
 				}
 			}
