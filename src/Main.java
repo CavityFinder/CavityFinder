@@ -8,8 +8,8 @@ public class Main {
 	public static void main(String[] args) {
 		// for testing
 		// remove this line when building
-		args = new String[] { "-i", "~/Desktop/input.pdb", "-o",
-				"~/Desktop/output.pdb", "-probe", "1.7", "-resolution", "0.25" };
+		args = new String[] { "-i", "src/example_input.pdb", "-o",
+				"src/example_output.pdb", "-probe", "1.7", "-resolution", "0.25" };
 		ArrayList<Atom> atoms = new ArrayList<Atom>();
 		String inputFilePath = null;
 		String outputFilePath = null;
@@ -34,7 +34,21 @@ public class Main {
 				+ probeSize + " " + resolution);
 		try {
 			Scanner input = new Scanner(new File(inputFilePath));
-			// atoms.add(new Atom(...));
+			while (input.hasNextLine()){
+				String info = input.nextLine();
+				Scanner parser = new Scanner(info);
+				parser.next();
+				parser.next();
+				parser.next();
+				parser.next();
+				parser.next();
+				double x = parser.nextDouble();
+				double y = parser.nextDouble();
+				double z = parser.nextDouble();
+				parser.nextDouble();
+				double r = parser.nextDouble();
+				atoms.add(new Atom(info, x, y, z, r));
+			}
 		} catch (FileNotFoundException e) {
 			System.out.println("File Not Found. Exiting.");
 		}
