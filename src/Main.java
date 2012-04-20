@@ -32,6 +32,11 @@ public class Main {
 		}
 		System.out.println(inputFilePath + " " + outputFilePath + " "
 				+ probeSize + " " + resolution);
+		loadFile(inputFilePath,atoms);
+		
+	}
+	
+	public static void loadFile(String inputFilePath, ArrayList<Atom>atoms){
 		try {
 			Scanner input = new Scanner(new File(inputFilePath));
 			while (input.hasNextLine()){
@@ -53,8 +58,6 @@ public class Main {
 			System.out.println("File Not Found. Exiting.");
 		}
 	}
-	
-	public static void loadFile(){}
 
 	public static void inputError() {
 		System.out
@@ -80,23 +83,6 @@ public class Main {
 			}
 		} catch (FileNotFoundException e) {
 			System.out.println("Error printing output file.");
-		}
-	}
-
-	public static void eraseNonCavities(byte[][][] atoms, int cx, int cy, int cz) {
-		if (atoms[cx][cy][cz] ==-1)
-			return;
-		atoms[cx][cy][cz]= -1;
-		for (int i = cx - 1; i <= cx + 1; i++) {
-			for (int j = cy - 1; j < cy + 1; j++) {
-				for (int k = cz - 1; k < cz + 1; k++) {
-					if (!(i == cx && j == cy && k == cz) && i >= 0 && j >= 0
-							&& k >= 0 && i < atoms.length
-							&& j < atoms[0].length && k < atoms[0][0].length) {
-						eraseNonCavities(atoms,i,j,k);
-					}
-				}
-			}
 		}
 	}
 }
