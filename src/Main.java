@@ -10,6 +10,7 @@ public class Main {
 		args = new String[] { "-i", "~/Desktop/input.pdb", "-o",
 				"~/Desktop/output.pdb", "-probe", "1.7", "-resolution", "0.25" };
 		ArrayList<Atom> atoms = new ArrayList<Atom>();
+		Atom[][][] atomArray;
 		String inputFilePath = null;
 		String outputFilePath = null;
 		double probeSize = 0;
