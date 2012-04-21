@@ -9,8 +9,10 @@ public class Main {
 		// for testing
 		// remove this line when building
 		args = new String[] { "-i", "src/example_input.pdb", "-o",
-				"src/example_output.pdb", "-probe", "1.7", "-resolution", "0.25" };
+				"src/example_output.pdb", "-probe", "1.7", "-resolution",
+				"0.25" };
 		ArrayList<Atom> atoms = new ArrayList<Atom>();
+		Universe universe;
 		String inputFilePath = null;
 		String outputFilePath = null;
 		double probeSize = 0;
@@ -32,14 +34,18 @@ public class Main {
 		}
 		System.out.println(inputFilePath + " " + outputFilePath + " "
 				+ probeSize + " " + resolution);
-		loadFile(inputFilePath,atoms);
-		
+		universe = loadFile(inputFilePath, atoms, resolution, probeSize);
+		universe.eraseProbeAtoms(atoms);
+		universe.eraseNonCavities();
+		printOutputFile(outputFilePath, atoms, universe);
 	}
-	
-	public static void loadFile(String inputFilePath, ArrayList<Atom>atoms){
+
+	public static Universe loadFile(String inputFilePath,
+			ArrayList<Atom> atoms, double res, double probeR) {
+		double minX = Integer.MAX_VALUE, maxX = Integer.MIN_VALUE, minY = Integer.MAX_VALUE, maxY = Integer.MIN_VALUE, minZ = Integer.MAX_VALUE, maxZ = Integer.MIN_VALUE;
 		try {
 			Scanner input = new Scanner(new File(inputFilePath));
-			while (input.hasNextLine()){
+			while (input.hasNextLine()) {
 				String info = input.nextLine();
 				Scanner parser = new Scanner(info);
 				parser.next();
@@ -50,13 +56,22 @@ public class Main {
 				double x = parser.nextDouble();
 				double y = parser.nextDouble();
 				double z = parser.nextDouble();
+
 				parser.nextDouble();
 				double r = parser.nextDouble();
+				minX = Math.min(minX, x - r);
+				maxX = Math.max(maxX, x + r);
+				minY = Math.min(minY, y - r);
+				maxY = Math.max(maxY, y + r);
+				minZ = Math.min(minZ, z - r);
+				maxZ = Math.max(maxZ, z + r);
 				atoms.add(new Atom(info, x, y, z, r));
 			}
 		} catch (FileNotFoundException e) {
 			System.out.println("File Not Found. Exiting.");
+			System.exit(1);
 		}
+		return new Universe(res, probeR, minX, maxX, minY, maxY, minZ, maxZ);
 	}
 
 	public static void inputError() {
@@ -64,23 +79,16 @@ public class Main {
 				.println("Usage: mycode -i inputfile -o outputfile -probe 1.7 -resolution 0.25");
 		System.exit(1);
 	}
-	
-	public static void eraseProbeAtoms(){
-		
-	}
-	
-	public static void printOutputFile(String outputFile, ArrayList<Atom> loadedAtoms, byte[][][]probeAtoms){
+
+	public static void printOutputFile(String outputFile,
+			ArrayList<Atom> loadedAtoms, Universe universe) {
 		try {
 			PrintWriter out = new PrintWriter(new File(outputFile));
-			for(Atom atom:loadedAtoms)
+			for (Atom atom : loadedAtoms)
 				out.println(atom);
-			for(int i = 0; i<probeAtoms.length;i++){
-				for(int j = 0; j<probeAtoms[0].length;j++){
-					for(int k = 0; k<probeAtoms[0][0].length;k++){
-						
-					}
-				}
-			}
+			universe.print(out);
+			out.flush();
+			out.close();
 		} catch (FileNotFoundException e) {
 			System.out.println("Error printing output file.");
 		}
