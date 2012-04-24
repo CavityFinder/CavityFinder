@@ -13,11 +13,6 @@ import java.util.Scanner;
 
 public class Main {
 	public static void main(String[] args) {
-		// for testing
-		// remove this line when building
-		args = new String[] { "-i", "src/example_input2.pdb", "-o",
-				"src/example_output.pdb", "-probe", "1.7", "-resolution",
-				"0.25" };
 		ArrayList<Atom> atoms = new ArrayList<Atom>();
 		Universe universe;
 		String inputFilePath = null;
