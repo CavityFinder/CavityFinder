@@ -15,7 +15,10 @@ public class Universe {
 		this.resolution = resolution;
 		this.probeR = probeR;
 	}
-
+	
+	/**
+	 * Translations from grid space to atom space and back.
+	 */
 	private int xToGrid(double x) {
 		return (int) (1+(x - minX) / resolution);
 	}
@@ -68,7 +71,10 @@ public class Universe {
 			}
 		}
 	}
-
+	/**
+	 * Print out the formatted translated coordinates of all
+	 * probe atoms left in the array. 
+	 */
 	public void print(PrintWriter p) {
 		int count = 1;
 		for (int i = 0; i < atoms.length; i++) {
@@ -83,7 +89,12 @@ public class Universe {
 			}
 		}
 	}
-
+	/**
+	 * Recursively remove all probe atoms touching the current atom.
+	 * The root atom is at the origin.
+	 * To avoid stack overflows, this algorithm is not fully recursive
+	 * The stack is moved into the heap, and a loop is used.
+	 */
 	public void eraseNonCavities() {
 		Stack<int[]> stack = new Stack<int[]>();
 		stack.push(new int[] { 0, 0, 0 });

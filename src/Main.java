@@ -9,7 +9,6 @@ import java.util.Scanner;
  * @authors Bryan Malyn (bmalyn)
  * 			John Mooring (jmooring)
  * 			Derek Chaconas (chaconas)
- *
  */
 
 public class Main {
