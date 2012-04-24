@@ -11,7 +11,7 @@ public class Atom {
 		this.r = r;
 	}
 	
-	//Returns the information that the atom was constucted with.
+	//Returns the information that the atom was constructed with.
 	public String toString() {
 		return info;
 	}
