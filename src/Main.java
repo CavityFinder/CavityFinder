@@ -4,11 +4,19 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Final Project
+ * @authors Bryan Malyn (bmalyn)
+ * 			John Mooring (jmooring)
+ * 			Derek Chaconas (chaconas)
+ *
+ */
+
 public class Main {
 	public static void main(String[] args) {
 		// for testing
 		// remove this line when building
-		args = new String[] { "-i", "src/example_input.pdb", "-o",
+		args = new String[] { "-i", "src/example_input2.pdb", "-o",
 				"src/example_output.pdb", "-probe", "1.7", "-resolution",
 				"0.25" };
 		ArrayList<Atom> atoms = new ArrayList<Atom>();

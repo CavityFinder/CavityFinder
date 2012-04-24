@@ -17,29 +17,33 @@ public class Universe {
 	}
 
 	private int xToGrid(double x) {
-		return (int) ((x - minX) / resolution);
+		return (int) (1+(x - minX) / resolution);
 	}
 
 	private int yToGrid(double y) {
-		return (int) ((y - minY) / resolution);
+		return (int) (1+(y - minY) / resolution);
 	}
 
 	private int zToGrid(double z) {
-		return (int) ((z - minZ) / resolution);
+		return (int) (1+(z - minZ) / resolution);
 	}
 
 	private double gridToX(int x) {
-		return x * resolution + minX;
+		return (x-1) * resolution + minX;
 	}
 
 	private double gridToY(int y) {
-		return y * resolution + minY;
+		return (y-1) * resolution + minY;
 	}
 
 	private double gridToZ(int z) {
-		return z * resolution + minZ;
+		return (z-1) * resolution + minZ;
 	}
-
+	/**
+	 * For every probe atom within the bounding box of every protein atom,
+	 * erase the probe atom if it intersects the protein atom.
+	 * @param proteinAtoms
+	 */
 	public void eraseProbeAtoms(ArrayList<Atom> proteinAtoms) {
 		for (Atom atom : proteinAtoms) {
 			for (int i = xToGrid(atom.x - atom.r); i <= xToGrid(atom.x + atom.r); i++) {
@@ -50,14 +54,14 @@ public class Universe {
 						if (i >= 0 && j >= 0 && k >= 0 && i < atoms.length
 								&& j < atoms[0].length
 								&& k < atoms[0][0].length) {
-							if (atoms[i + 1][j + 1][k + 1] == 0
+							if (atoms[i][j][k] == 0
 									&& (((atom.x - gridToX(i))
 											* (atom.x - gridToX(i))
 											+ (atom.y - gridToY(j))
 											* (atom.y - gridToY(j)) + (atom.z - gridToZ(k))
 											* (atom.z - gridToZ(k))) < (probeR + atom.r)
 											* (probeR + atom.r)))
-								atoms[i + 1][j + 1][k + 1] = -1;
+								atoms[i][j][k] = -1;
 						}
 					}
 				}
@@ -74,7 +78,7 @@ public class Universe {
 						p.format("ATOM  " + (10000 + count) + "  MC  CAV  "
 								+ (5000 + count++)
 								+ "     %7.3f %7.3f %7.3f  1.00 %5.2f" + "\n",
-								gridToX(i-1), gridToY(j-1), gridToZ(k-1), probeR);
+								gridToX(i), gridToY(j), gridToZ(k), probeR);
 				}
 			}
 		}
