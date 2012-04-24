@@ -19,6 +19,7 @@ public class Main {
 		double resolution = 0;
 		if (args.length != 8)
 			inputError();
+		// Load the command line arguments
 		for (int i = 0; i < 8; i += 2) {
 			if (args[i].equals("-i")) {
 				inputFilePath = args[i + 1];
@@ -32,14 +33,18 @@ public class Main {
 				inputError();
 			}
 		}
-		System.out.println(inputFilePath + " " + outputFilePath + " "
-				+ probeSize + " " + resolution);
+		// Load the universe
 		universe = loadFile(inputFilePath, atoms, resolution, probeSize);
+		// Erase probe atoms from universe
 		universe.eraseProbeAtoms(atoms);
+		// Erase non cavities from universe
 		universe.eraseNonCavities();
+		// Generates output file
 		printOutputFile(outputFilePath, atoms, universe);
 	}
 
+	// Loads the universe from the input file, and sets the resolution as well
+	// as the probe size.
 	public static Universe loadFile(String inputFilePath,
 			ArrayList<Atom> atoms, double res, double probeR) {
 		double minX = Integer.MAX_VALUE, maxX = Integer.MIN_VALUE, minY = Integer.MAX_VALUE, maxY = Integer.MIN_VALUE, minZ = Integer.MAX_VALUE, maxZ = Integer.MIN_VALUE;
@@ -74,12 +79,14 @@ public class Main {
 		return new Universe(res, probeR, minX, maxX, minY, maxY, minZ, maxZ);
 	}
 
+	// Shows the proper format for the command line arguments
 	public static void inputError() {
 		System.out
 				.println("Usage: mycode -i inputfile -o outputfile -probe 1.7 -resolution 0.25");
 		System.exit(1);
 	}
 
+	// Creates the output file.
 	public static void printOutputFile(String outputFile,
 			ArrayList<Atom> loadedAtoms, Universe universe) {
 		try {
