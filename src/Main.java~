@@ -1,18 +1,15 @@
-
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Scanner;
-
-
 /* 
 I have not received unauthorized aid on this assignment. I understand
 the answers that I have submitted. The answers submitted have not
 been directly copied from another source, but instead are written in
 my own words. 
 */
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Final Project

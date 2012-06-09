@@ -5,15 +5,6 @@ been directly copied from another source, but instead are written in
 my own words. 
 */
 
-
-/**
- * Final Project
- * @authors Bryan Malyn (bmalyn)
- * 			John Mooring (jmooring)
- * 			Derek Chaconas (chaconas)
- */
-
-
 public class Atom {
 	private String info;
 	public double x, y, z, r;

@@ -2,24 +2,6 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Stack;
 
-
-
-/* 
-I have not received unauthorized aid on this assignment. I understand
-the answers that I have submitted. The answers submitted have not
-been directly copied from another source, but instead are written in
-my own words. 
-*/
-
-
-/**
- * Final Project
- * @authors Bryan Malyn (bmalyn)
- * 			John Mooring (jmooring)
- * 			Derek Chaconas (chaconas)
- */
-
-
 public class Universe {
 	private byte[][][] atoms; // probe = 0, empty = -1;
 	private double minX, minY, minZ, resolution, probeR;
